@@ -24,7 +24,7 @@ namespace ADCImportExport
             string operation = args[0];
             string filePath = args[1];
 
-            AzureDataCatalog td = new AzureDataCatalog(null, null);
+            AzureDataCatalog td = new AzureDataCatalog();
 
             if (operation.Equals("-export"))
             {
@@ -155,7 +155,6 @@ namespace ADCImportExport
 
             JsonTextWriter jtw = new JsonTextWriter(sw);
 
-
             reader.Read();
             if (reader.TokenType != JsonToken.StartObject)
             {
@@ -275,30 +274,28 @@ namespace ADCImportExport
         private readonly AuthenticationResult auth;
         private static readonly AuthenticationContext AuthContext = new AuthenticationContext("https://login.windows.net/common/oauth2/authorize");
 
-        public AzureDataCatalog(string userName, string password)
+
+        public AzureDataCatalog()
         {
             //NOTE: You must fill in the App.Config with the following three settings. The first two are values that you received registered your application with AAD. The 3rd setting is always the same value.:
-            //  <appSettings>
-            //    <add key="ClientId" value=/>
-            //    <add key="RedirectURI" value=/>
-            //    <add key="ResourceId" value="https://datacatalog.azure.com"/>
-            //  </appSettings>
+            //< ADCImportExport.Properties.Settings >
+            //    <setting name = "ClientId" serializeAs = "String">
+            //           <value></value>
+            //       </setting>
+            //       <setting name = "RedirectURI" serializeAs = "String">
+            //              <value> https://login.live.com/oauth20_desktop.srf</value>
+            //    </setting>
+            //    <setting name = "ResourceId" serializeAs = "String">
+            //           <value> https://datacatalog.azure.com</value>
+            //    </setting>
+            //</ADCImportExport.Properties.Settings>
 
-            ClientId = System.Configuration.ConfigurationManager.AppSettings["ClientId"];
-            RedirectUri = new Uri(System.Configuration.ConfigurationManager.AppSettings["RedirectURI"]);
-            ResourceId = System.Configuration.ConfigurationManager.AppSettings["ResourceId"];
+            ClientId = ADCImportExport.Properties.Settings.Default.ClientId;
+            RedirectUri = new Uri(ADCImportExport.Properties.Settings.Default.RedirectURI);
+            ResourceId = ADCImportExport.Properties.Settings.Default.ResourceId;
             CatalogName = "DefaultCatalog";
 
-            if (userName == null)
-            {
-                auth = AuthContext.AcquireToken(ResourceId, ClientId, RedirectUri, PromptBehavior.Always);
-            }
-            else
-            {
-                var credentials = new UserCredential(userName, ToSecureString(password));
-                password = null;
-                auth = AuthContext.AcquireToken(ResourceId, ClientId, credentials);
-            }
+            auth = AuthContext.AcquireToken(ResourceId, ClientId, RedirectUri, PromptBehavior.Always);
         }
 
         public string Get(string id)

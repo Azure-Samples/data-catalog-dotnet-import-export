@@ -3,13 +3,13 @@
   <Profiles />
   <Settings>
     <Setting Name="ClientId" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)"></Value>
     </Setting>
     <Setting Name="RedirectURI" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">http://localhost</Value>
     </Setting>
     <Setting Name="ResourceId" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">https://datacatalog.azure.com</Value>
     </Setting>
   </Settings>
 </SettingsFile>

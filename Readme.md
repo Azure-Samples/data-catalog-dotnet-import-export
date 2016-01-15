@@ -1,13 +1,19 @@
-# Import/Export sample tool
+---
+services: data-catalog
+platforms: dotnet
+author: dvana
+---
+
+﻿# Import/Export sample tool
 
 The Import/Export tool is a sample about how to use the Azure Data Catalog REST API to fetch information from the Azure Data Catalog and how to register items with the catalog. It also shows how to manage a catalog.
 
 To get started using the sample, you first need to build the executable.  You need to do the following steps.
 
--	Download the sample project.
--	Open it in Visual Studio and fetch the dependent nuget packages.
--	Create (or use an existing) Azure Active Directory Application Id and the corresponding information. If you do not have one and need instructions on how to get one see here.
--	Add the following to the app config for the app where the first two values are the ones you got from the previous step.
+- Download the sample project.
+- Open it in Visual Studio and fetch the dependent nuget packages.
+- Create (or use an existing) Azure Active Directory Application Id and the corresponding information. If you do not have one and need instructions on how to get one see here.
+- Add the following to the app config for the app where the first two values are the ones you got from the previous step.
 
      <userSettings>
         <ADCImportExport.Properties.Settings>
@@ -18,12 +24,13 @@ To get started using the sample, you first need to build the executable.  You ne
                 <value />
             </setting>
             <setting name="ResourceId" serializeAs="String">
-                <value />
+                <value>https://datacatalog.azure.com</value>
             </setting>
         </ADCImportExport.Properties.Settings>
-    </userSettings>Compile the app
+    </userSettings>
 
--	You are now ready to run it.
+- Compile the app
+- You are now ready to run it.
 
 The app can be run in one of two modes:
 

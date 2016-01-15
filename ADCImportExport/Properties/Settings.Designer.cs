@@ -37,7 +37,7 @@ namespace ADCImportExport.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost")]
         public string RedirectURI {
             get {
                 return ((string)(this["RedirectURI"]));
@@ -49,7 +49,7 @@ namespace ADCImportExport.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://datacatalog.azure.com")]
         public string ResourceId {
             get {
                 return ((string)(this["ResourceId"]));
