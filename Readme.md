@@ -6,7 +6,7 @@ author: dvana
 
 ﻿#Data Catalog Import/Export sample tool
 
-The Import/Export tool is a sample about how to use the Azure Data Catalog REST API to fetch information from the Azure Data Catalog and how to register items with the catalog. It also shows how to manage a catalog.
+The Import/Export tool is a sample that shows how to use the Azure Data Catalog REST API to fetch information from the Azure Data Catalog and how to register items with the catalog. It also shows how to manage a catalog.
 
 To get started using the sample, you first need to build the executable.  You need to do the following steps.
 
