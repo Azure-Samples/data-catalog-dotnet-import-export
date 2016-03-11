@@ -3,10 +3,10 @@ using System;
 using System.Text;
 using System.IO;
 using System.Net;
-using Newtonsoft.Json;
+using Newtonsoft.Json; //Install-Package Newtonsoft.Json
 using Newtonsoft.Json.Linq;
 using System.Security;
-using Microsoft.IdentityModel.Clients.ActiveDirectory; //Install-Package Microsoft.IdentityModel.Clients.ActiveDirectory
+using Microsoft.IdentityModel.Clients.ActiveDirectory; //Install-Package Microsoft.IdentityModel
 
 
 namespace ADCImportExport
@@ -18,6 +18,8 @@ namespace ADCImportExport
             if (args.Length < 2)
             {
                 System.Console.WriteLine("-import file_path or -export file_path [-search search_string]");
+
+                Console.ReadLine();
                 return;
             }
 
@@ -49,7 +51,10 @@ namespace ADCImportExport
             else
             {
                 System.Console.WriteLine("Must specify either import or export");
+
             }
+
+            Console.ReadLine();
         }
 
         static int Export(AzureDataCatalog td, StreamWriter sw, string searchString)
@@ -213,8 +218,6 @@ namespace ADCImportExport
             Console.WriteLine("Total Imported Failed: " + totalAssetsImportFailed);
         }
 
-
-
         static void StripSystemProperties(JEnumerable<JToken> children)
         {
             foreach (JToken child in children)
@@ -251,8 +254,6 @@ namespace ADCImportExport
                     {
                         obj["__creatorId"] = "imported_" + obj["__creatorId"].ToString();
                     }
-                    
-
                 }
                 else
                 {
@@ -268,7 +269,6 @@ namespace ADCImportExport
     {
         private readonly string ClientId;
         private readonly Uri RedirectUri;
-        private readonly string ResourceId;
         private readonly string CatalogName;
 
         private readonly AuthenticationResult auth;
@@ -292,15 +292,16 @@ namespace ADCImportExport
 
             ClientId = ADCImportExport.Properties.Settings.Default.ClientId;
             RedirectUri = new Uri(ADCImportExport.Properties.Settings.Default.RedirectURI);
-            ResourceId = ADCImportExport.Properties.Settings.Default.ResourceId;
+
             CatalogName = "DefaultCatalog";
 
-            auth = AuthContext.AcquireToken(ResourceId, ClientId, RedirectUri, PromptBehavior.Always);
+            auth = AuthContext.AcquireToken("https://datacatalog.azure.com", ClientId, RedirectUri, PromptBehavior.Always);
         }
 
         public string Get(string id)
         {
-            var fullUri = string.Format("https://{0}.datacatalog.azure.com/{1}/views/{2}?api-version=2015-07.1.0-Preview", auth.TenantId, CatalogName, id);
+        
+            var fullUri = string.Format("https://api.azuredatacatalog.com/catalogs/{0}/views/{1}?api-version=2015-07.1.0-Preview", CatalogName, id);
 
             string requestId;
             HttpWebRequest request = CreateHttpRequest(fullUri, "GET", out requestId);
@@ -337,7 +338,7 @@ namespace ADCImportExport
 
         public string Search(string searchTerm, int startPage, int count)
         {
-            var fullUri = string.Format("https://{0}.search.datacatalog.azure.com/{1}/search/search?searchTerms={2}&count={3}&startPage={4},&api-version=2015-06.0.1-Preview", auth.TenantId, CatalogName, searchTerm, count, startPage);
+            var fullUri = string.Format("https://api.azuredatacatalog.com/catalogs/{0}/search/search?searchTerms={1}&count={2}&startPage={3},&api-version=2015-06.0.1-Preview", CatalogName, searchTerm, count, startPage);
 
             string requestId;
             HttpWebRequest request = CreateHttpRequest(fullUri, "GET", out requestId);
@@ -373,7 +374,7 @@ namespace ADCImportExport
         public string Update(string postPayload, string viewType, out string id)
         {
 
-            var fullUri = string.Format("https://{0}.datacatalog.azure.com/{1}/views/{2}?api-version=2015-07.1.0-Preview", auth.TenantId, CatalogName, viewType);
+            var fullUri = string.Format("https://api.azuredatacatalog.com/catalogs/{0}/views/{1}?api-version=2015-07.1.0-Preview", CatalogName, viewType);
 
             string requestId;
             var request = CreateHttpRequest(fullUri, "POST", out requestId);

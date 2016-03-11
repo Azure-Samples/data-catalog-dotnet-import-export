@@ -2,14 +2,11 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ADCImportExport.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="ClientId" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="ResourceId" Type="System.String" Scope="User">
-      <Value Profile="(Default)">https://datacatalog.azure.com</Value>
-    </Setting>
     <Setting Name="RedirectURI" Type="System.String" Scope="User">
       <Value Profile="(Default)">https://login.live.com/oauth20_desktop.srf</Value>
+    </Setting>
+    <Setting Name="ClientId" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

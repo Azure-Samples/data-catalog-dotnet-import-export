@@ -25,30 +25,6 @@ namespace ADCImportExport.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string ClientId {
-            get {
-                return ((string)(this["ClientId"]));
-            }
-            set {
-                this["ClientId"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://datacatalog.azure.com")]
-        public string ResourceId {
-            get {
-                return ((string)(this["ResourceId"]));
-            }
-            set {
-                this["ResourceId"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("https://login.live.com/oauth20_desktop.srf")]
         public string RedirectURI {
             get {
@@ -56,6 +32,18 @@ namespace ADCImportExport.Properties {
             }
             set {
                 this["RedirectURI"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ClientId {
+            get {
+                return ((string)(this["ClientId"]));
+            }
+            set {
+                this["ClientId"] = value;
             }
         }
     }

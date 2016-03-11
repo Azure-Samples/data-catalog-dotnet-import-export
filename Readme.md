@@ -12,9 +12,9 @@ To get started using the sample, you first need to build the executable.  You ne
 
 - Download the sample project.
 - Open it in Visual Studio and fetch the dependent nuget packages.
-- Create (or use an existing) Azure Active Directory Application Id and the corresponding information. If you do not have one and need instructions on how to get one see here.
+- Create (or use an existing) Azure Active Directory Application Id and the corresponding information. If you do not have one and need instructions on how to get one [see here](https://msdn.microsoft.com/en-us/library/azure/mt403303.aspx).
 - Add the following to the app config for the app where the first two values are the ones you got from the previous step.
-
+```
      <userSettings>
         <ADCImportExport.Properties.Settings>
             <setting name="ClientId" serializeAs="String">
@@ -28,7 +28,7 @@ To get started using the sample, you first need to build the executable.  You ne
             </setting>
         </ADCImportExport.Properties.Settings>
     </userSettings>
-
+```
 - Compile the app
 - You are now ready to run it.
 
