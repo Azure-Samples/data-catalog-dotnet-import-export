@@ -8,8 +8,7 @@ using System.Linq;
 using System.Net;
 using Newtonsoft.Json; //Install-Package Newtonsoft.Json
 using Newtonsoft.Json.Linq;
-using System.Security;
-using Microsoft.IdentityModel.Clients.ActiveDirectory; //Install-Package Microsoft.IdentityModel
+using Microsoft.IdentityModel.Clients.ActiveDirectory; //Install-Package Microsoft.IdentityModel.Clients.ActiveDirectory
 
 
 namespace ADCImportExport
@@ -291,7 +290,7 @@ namespace ADCImportExport
 
                 CatalogName = "DefaultCatalog";
 
-                auth = AuthContext.AcquireToken("https://api.azuredatacatalog.com", ClientId, RedirectUri, PromptBehavior.Always);
+                auth = AuthContext.AcquireTokenAsync("https://api.azuredatacatalog.com", ClientId, RedirectUri, new PlatformParameters(PromptBehavior.Always)).Result;
             }
 
             public string Get(string uri)
