@@ -162,6 +162,8 @@ namespace ADCImportExport
             int totalAssetsImportSucceeded = 0;
             int totalAssetsImportFailed = 0;
 
+            var userInfo = td.GetUserInfo();
+
             System.IO.StreamReader sr = new StreamReader(exportedCatalogFilePath);
             JsonTextReader reader = new JsonTextReader(sr);
 
@@ -201,6 +203,23 @@ namespace ADCImportExport
                 string[] idInfo = id.Split(new char[] { '/' });
                 string newid;
 
+                // update lastRegisteredBy using current user to avoid error "InvalidLastRegisteredBy","message":"LastRegisteredBy is different from the current user."
+                if (asset["properties"].SelectToken("lastRegisteredBy") is JObject lastRegisteredBy)
+                {
+                    lastRegisteredBy["objectId"] = userInfo.UniqueId;
+                    lastRegisteredBy["upn"] = userInfo.DisplayableId;
+                    lastRegisteredBy["firstName"] = userInfo.GivenName;
+                    lastRegisteredBy["lastName"] = userInfo.FamilyName;
+                }
+
+                //update annotations with key using user id
+                if (asset.SelectToken("annotations") is JObject annotationsNode)
+                {
+                    if (annotationsNode.SelectToken("descriptions[0].properties") is JObject properties)
+                    {
+                        properties["key"] = userInfo.UniqueId.Replace("-", "");
+                    }
+                }
                 string UpdateResponse = td.Update(asset.ToString(), idInfo[idInfo.Length - 2], out newid);
 
                 if ((UpdateResponse != null) && (!string.IsNullOrEmpty(newid)))
@@ -465,6 +484,10 @@ namespace ADCImportExport
                 StreamReader reader = new StreamReader(stream);
                 result = reader.ReadToEnd();
                 return result;
+            }
+            public UserInfo GetUserInfo()
+            {
+                return auth.UserInfo;
             }
         }
     }
